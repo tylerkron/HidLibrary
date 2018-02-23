@@ -10,37 +10,30 @@
     {
         public class HidFastReadEnumeratorTests
         {
-            private HidFastReadEnumerator enumerator;
-            private string devicePath;
+            private HidFastReadEnumerator _enumerator;
+            private string _devicePath;
             
             public void BeforeEach()
             {
-                enumerator = new HidFastReadEnumerator();
-                var firstDevice = enumerator.Enumerate().FirstOrDefault();
+                _enumerator = new HidFastReadEnumerator();
+                var firstDevice = _enumerator.Enumerate().FirstOrDefault();
 
-                if (firstDevice != null)
-                {
-                    devicePath = firstDevice.DevicePath;
-                }
-                else
-                {
-                    devicePath = "";
-                }
+                _devicePath = firstDevice != null ? firstDevice.DevicePath : "";
             }
 
             [Fact]
             public void CanConstruct()
             {
                 BeforeEach();
-                enumerator.ShouldBeType(typeof(HidFastReadEnumerator));
+                _enumerator.ShouldBeType(typeof(HidFastReadEnumerator));
             }
 
             [Fact]
             public void WrapsIsConnected()
             {
                 BeforeEach();
-                bool enumIsConnected = enumerator.IsConnected(devicePath);
-                bool hidIsConnected = HidDevices.IsConnected(devicePath);
+                var enumIsConnected = _enumerator.IsConnected(_devicePath);
+                var hidIsConnected = HidDevices.IsConnected(_devicePath);
                 enumIsConnected.ShouldEqual(hidIsConnected);
             }
 
@@ -48,8 +41,8 @@
             public void WrapsGetDevice()
             {
                 BeforeEach();
-                IHidDevice enumDevice = enumerator.GetDevice(devicePath);
-                IHidDevice hidDevice = HidDevices.GetDevice(devicePath);
+                var enumDevice = _enumerator.GetDevice(_devicePath);
+                IHidDevice hidDevice = HidDevices.GetDevice(_devicePath);
                 enumDevice.DevicePath.ShouldEqual(hidDevice.DevicePath);
             }
 
@@ -57,8 +50,8 @@
             public void WrapsEnumerateDefault()
             {
                 BeforeEach();
-                IEnumerable<IHidDevice> enumDevices = enumerator.Enumerate();
-                IEnumerable<IHidDevice> hidDevices = HidDevices.Enumerate().
+                var enumDevices = _enumerator.Enumerate();
+                var hidDevices = HidDevices.Enumerate().
                     Select(d => d as IHidDevice);
 
 
@@ -69,10 +62,10 @@
             public void WrapsEnumerateDevicePath()
             {
                 BeforeEach();
-                IEnumerable<IHidDevice> enumDevices =
-                    enumerator.Enumerate(devicePath);
-                IEnumerable<IHidDevice> hidDevices =
-                    HidDevices.Enumerate(devicePath).
+                var enumDevices =
+                    _enumerator.Enumerate(_devicePath);
+                var hidDevices =
+                    HidDevices.Enumerate(_devicePath).
                         Select(d => d as IHidDevice);
 
 
@@ -83,11 +76,11 @@
             public void WrapsEnumerateVendorId()
             {
                 BeforeEach();
-                int vid = GetVid();
+                var vid = GetVid();
 
-                IEnumerable<IHidDevice> enumDevices =
-                    enumerator.Enumerate(vid);
-                IEnumerable<IHidDevice> hidDevices =
+                var enumDevices =
+                    _enumerator.Enumerate(vid);
+                var hidDevices =
                     HidDevices.Enumerate(vid).
                         Select(d => d as IHidDevice);
 
@@ -99,12 +92,12 @@
             public void WrapsEnumerateVendorIdProductId()
             {
                 BeforeEach();
-                int vid = GetVid();
-                int pid = GetPid();
+                var vid = GetVid();
+                var pid = GetPid();
 
-                IEnumerable<IHidDevice> enumDevices =
-                    enumerator.Enumerate(vid, pid);
-                IEnumerable<IHidDevice> hidDevices =
+                var enumDevices =
+                    _enumerator.Enumerate(vid, pid);
+                var hidDevices =
                     HidDevices.Enumerate(vid, pid).
                         Select(d => d as IHidDevice);
 
@@ -116,7 +109,7 @@
             public void DevicesAreFastRead()
             {
                 BeforeEach();
-                HidFastReadDevice device = enumerator.GetDevice(devicePath) as HidFastReadDevice;
+                var device = _enumerator.GetDevice(_devicePath) as HidFastReadDevice;
                 device.ShouldNotBeNull();
             }
 
@@ -126,14 +119,14 @@
                 if (a.Count() != b.Count())
                     return false;
 
-                bool allSame = true;
+                var allSame = true;
 
                 var aList = a.ToList();
                 var bList = b.ToList();
 
-                int numDevices = aList.Count;
+                var numDevices = aList.Count;
 
-                for (int i = 0; i < numDevices; i++)
+                for (var i = 0; i < numDevices; i++)
                 {
                     if (aList[i].DevicePath !=
                         bList[i].DevicePath)
@@ -158,10 +151,10 @@
 
             private int GetNumberFromRegex(string pattern)
             {
-                var match = Regex.Match(devicePath, pattern,
+                var match = Regex.Match(_devicePath, pattern,
                     RegexOptions.IgnoreCase);
 
-                int num = 0;
+                var num = 0;
 
                 if (match.Success)
                 {

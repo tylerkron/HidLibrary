@@ -12,7 +12,7 @@ namespace HidLibrary
 
         public IHidDevice GetDevice(string devicePath)
         {
-            return Enumerate(devicePath).FirstOrDefault() as IHidDevice;
+            return Enumerate(devicePath).FirstOrDefault();
         }
 
         public IEnumerable<IHidDevice> Enumerate()

@@ -2,16 +2,13 @@
 {
     public class HidAsyncState
     {
-        private readonly object _callerDelegate;
-        private readonly object _callbackDelegate;
+        public object CallerDelegate { get; }
+        public object CallbackDelegate { get; }
 
         public HidAsyncState(object callerDelegate, object callbackDelegate)
         {
-            _callerDelegate = callerDelegate;
-            _callbackDelegate = callbackDelegate;
+            CallerDelegate = callerDelegate;
+            CallbackDelegate = callbackDelegate;
         }
-
-        public object CallerDelegate { get { return _callerDelegate; } }
-        public object CallbackDelegate { get { return _callbackDelegate; } }
     }
 }

@@ -80,7 +80,7 @@ namespace TestHarness
 
         private void Devices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((_selectedDevice != null)) _selectedDevice.CloseDevice();
+            _selectedDevice?.CloseDevice();
             _selectedDevice = _deviceList[Devices.SelectedIndex];
             _selectedDevice.OpenDevice();
             _selectedDevice.MonitorDeviceEvents = true;
@@ -115,7 +115,7 @@ namespace TestHarness
 
         private void ReadProcess(HidReport report)
         {
-            BeginInvoke(new ReadHandlerDelegate(ReadHandler), new object[] { report });
+            BeginInvoke(new ReadHandlerDelegate(ReadHandler), report);
         }
 
         private void ReadHandler(HidReport report)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -36,10 +35,10 @@ namespace HidLibrary
                                                                                   productIds.Contains(x.Attributes.ProductId));
         }
 
-        public static IEnumerable<HidDevice> Enumerate(int vendorId, int productId, ushort UsagePage)
+        public static IEnumerable<HidDevice> Enumerate(int vendorId, int productId, ushort usagePage)
         {
             return EnumerateDevices().Select(x => new HidDevice(x.Path, x.Description)).Where(x => x.Attributes.VendorId == vendorId &&
-                                                                                  productId == (ushort)x.Attributes.ProductId && (ushort)x.Capabilities.UsagePage == UsagePage);
+                                                                                  productId == (ushort)x.Attributes.ProductId && (ushort)x.Capabilities.UsagePage == usagePage);
         }
         public static IEnumerable<HidDevice> Enumerate(int vendorId)
         {
@@ -128,7 +127,7 @@ namespace HidLibrary
                                                             descriptionBuffer.Length,
                                                             ref requiredSize);
 
-            return descriptionBuffer.ToUTF8String();
+            return descriptionBuffer.ToUtf8String();
         }
 
         private static string GetBusReportedDeviceDescription(IntPtr deviceInfoSet, ref NativeMethods.SP_DEVINFO_DATA devinfoData)
@@ -149,7 +148,7 @@ namespace HidLibrary
                                                                         ref requiredSize,
                                                                         0);
 
-                if (_continue) return descriptionBuffer.ToUTF16String();
+                if (_continue) return descriptionBuffer.ToUtf16String();
             }
             return null;
         }

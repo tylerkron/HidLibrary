@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace HidLibrary
@@ -27,7 +26,7 @@ namespace HidLibrary
 
         public IHidDevice GetDevice(string devicePath)
         {
-            return HidDevices.GetDevice(devicePath) as IHidDevice;
+            return HidDevices.GetDevice(devicePath);
         }
 
         public IEnumerable<IHidDevice> Enumerate()

@@ -7,8 +7,6 @@ namespace HidLibrary
         private byte _reportId;
         private byte[] _data = new byte[] {};
 
-        private readonly HidDeviceData.ReadStatus _status;
-
         public HidReport(int reportSize)
         {
             Array.Resize(ref _data, reportSize - 1);
@@ -16,7 +14,7 @@ namespace HidLibrary
 
         public HidReport(int reportSize, HidDeviceData deviceData)
         {
-            _status = deviceData.Status;
+            ReadStatus = deviceData.Status;
 
             Array.Resize(ref _data, reportSize - 1);
 
@@ -41,11 +39,11 @@ namespace HidLibrary
         }
 
         public bool Exists { get; private set; }
-        public HidDeviceData.ReadStatus ReadStatus { get { return _status; } }
+        public HidDeviceData.ReadStatus ReadStatus { get; }
 
         public byte ReportId
         {
-            get { return _reportId; }
+            get => _reportId;
             set
             {
                 _reportId = value;
@@ -55,7 +53,7 @@ namespace HidLibrary
 
         public byte[] Data
         {
-            get { return _data; }
+            get => _data;
             set
             {
                 _data = value;

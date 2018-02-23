@@ -32,7 +32,7 @@ namespace HidLibrary
             if (isConnected != _wasConnected)
             {
                 if (isConnected && Inserted != null) Inserted();
-                else if (!isConnected && Removed != null) Removed();
+                else if (!isConnected) Removed?.Invoke();
                 _wasConnected = isConnected;
             }
 

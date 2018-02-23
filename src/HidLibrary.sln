@@ -1,10 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HidLibrary", "HidLibrary\HidLibrary.csproj", "{9E8F1D50-74EA-4C60-BD5C-AB2C5B53BC66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHarness", "TestHarness\TestHarness.csproj", "{3009AC13-6BED-44AF-92F6-8E6C802716C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{5AFA775C-12DA-453A-8611-11E9FAEE7A8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HidLibraryTests", "Tests\HidLibraryTests.csproj", "{5AFA775C-12DA-453A-8611-11E9FAEE7A8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,5 +62,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A661B47-02EB-4844-AFAF-090A932306BE}
 	EndGlobalSection
 EndGlobal
